@@ -1,0 +1,49 @@
+﻿@model lmltfy.Models.SearchModel
+
+
+@using (Ajax.BeginForm(new AjaxOptions() { OnComplete = "showResults", OnBegin = "disableBtn"}))
+{
+    
+    @Html.Partial("SearchBarParitalView")
+
+}
+
+<div class="row" id="resultsDiv" style="display: none">
+    <form class="form-horizontal col-md-offset-3">
+        <label for="results" class="control-label col-md-2">Url To Share:</label>
+        <div class="col-md-8">
+            <input type="text" id="results" class="form-control" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        jQuery.fn.highlight = function () {
+            $(this).each(function () {
+                var el = $(this);
+                el.before("<div/>");
+                el.prev()
+                    .width(el.width())
+                    .height(el.height())
+                    .css({
+                        "position": "absolute",
+                        "background-color": "#ffff99",
+                        "opacity": ".9"
+                    })
+                    .fadeOut(1200);
+            });
+        }
+        function showResults(data) {
+            $('#mainGrp').hide();
+            $('#resultsDiv').show();
+            $('#results').val(data.responseText);
+            $('#resultsDiv').highlight();
+            
+        }
+        function disableBtn() {
+            $('#submitBtn').prop('disabled', true);
+        }
+    </script>
+}

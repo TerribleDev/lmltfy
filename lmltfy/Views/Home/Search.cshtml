@@ -1,0 +1,39 @@
+﻿@using lmltfy.Models
+@model lmltfy.Models.SearchResultsViewModel
+
+@Html.Partial("SearchBarParitalView", new SearchModel())
+
+@Html.HiddenFor(a=>a.SearchModel.Search, new {@Id = "SearchQuery"})
+@Html.HiddenFor(a=>a.LycosToken, new { @Id = "LycosToken" })
+
+@section Scripts
+{
+    <script src="~/Scripts/underscore.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var playSearch = function() {
+                var txt = $('#SearchQuery').val();
+                var txtLength = txt.length;
+
+                var currentText = $('#Search').val();
+                var currentTextLength = currentText.length;
+                $('#Search').val(txt.substr(0, currentTextLength + 1));
+
+                if (txtLength > currentTextLength) {
+                    _.delay(playSearch, 200);
+                } else {
+                    _.delay(function() {
+                        window.location.href = "http://search.lycos.com/web/?q=" + txt + "&keyvol=" + $('#LycosToken').val();
+                    }, 300);
+                }
+
+            }
+
+            playSearch();
+
+
+        });
+      
+    </script>
+
+}
