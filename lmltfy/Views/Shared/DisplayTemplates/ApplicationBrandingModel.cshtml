@@ -1,0 +1,21 @@
+﻿@model lmltfy.Models.ApplicationBrandingModel
+
+<h2 class="text-center" style="margin-bottom: 50px">Let Me <img src="@Model.LogoImageUrl" alt="@Model.LogoImageAlt" /> That for you</h2>
+
+@section styles
+{
+    @foreach (var sheet in Model.StyleSheetUrl)
+    {
+        <link rel="stylesheet" href="@sheet"/>
+    }
+}
+
+@section scripts
+{
+    @foreach (var script in Model.ScriptUrls)
+    {
+
+        <script src="@script"></script>
+    }
+    
+}

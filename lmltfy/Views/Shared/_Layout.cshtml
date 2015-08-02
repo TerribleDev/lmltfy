@@ -3,22 +3,27 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A website to generate lycos searches automagically">
     <title>lmltfy</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                @Html.ActionLink("lmltfy", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Lycos", "Index", "Home", new { area = "", application = lmltfy.Util.AppNames.Lycos }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Ask", "Index", "Home", new { area = "", application = lmltfy.Util.AppNames.Ask }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Duck Duck Go", "Index", "Home", new { area = "", application = lmltfy.Util.AppNames.DuckDuckGo }, new { @class = "navbar-brand" })
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
+
         <footer>
+            <hr />
             <p>&copy; @DateTime.Now.Year</p>
         </footer>
     </div>

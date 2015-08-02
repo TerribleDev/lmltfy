@@ -8,8 +8,11 @@ namespace lmltfy.Models
     public class SearchResultsViewModel
     {
         public SearchModel SearchModel { get; set; }
-        public string LycosToken { get; set; }
-        public SearchResultsViewModel(SearchModel searchModel, string lycosToken)
+        public RedirectModel RedirectModel { get; set; }
+
+        public IApplicationBrandingModel BrandingModel { get; set; }
+
+        public SearchResultsViewModel(SearchModel searchModel, RedirectModel redirectModel, IApplicationBrandingModel brandingModel)
         {
             if (string.IsNullOrWhiteSpace(searchModel.Search))
             {
@@ -19,12 +22,13 @@ namespace lmltfy.Models
             {
                 throw new ArgumentNullException();
             }
-            if (string.IsNullOrWhiteSpace(lycosToken))
+            if (redirectModel == null)
             {
                 throw new ArgumentNullException();
             }
             SearchModel = searchModel;
-            LycosToken = lycosToken;
+            RedirectModel = redirectModel;
+            BrandingModel = brandingModel;
         }
        
     }

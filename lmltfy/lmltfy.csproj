@@ -45,10 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CsQuery, Version=1.3.3.249, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -158,7 +154,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Factories\ApplicationBrandingFactory.cs" />
     <Compile Include="Factories\UrlGeneration.cs" />
+    <Compile Include="Factories\UrlResolverFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -166,11 +164,21 @@
     <Compile Include="Migrations\201507251954543_1.Designer.cs">
       <DependentUpon>201507251954543_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507270340540_2.cs" />
+    <Compile Include="Migrations\201507270340540_2.Designer.cs">
+      <DependentUpon>201507270340540_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ApplicationBrandingModel.cs" />
+    <Compile Include="Models\ApplicationBrandEnum.cs" />
+    <Compile Include="Models\IApplicationBrandingModel.cs" />
     <Compile Include="Models\lmltfyContext.cs" />
+    <Compile Include="Models\RedirectModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\SearchResultsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\AppNames.cs" />
+    <Compile Include="Util\Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -179,7 +187,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="google2ad737791aece819.html" />
+    <Content Include="Images\ajax-loader.gif" />
+    <Content Include="Images\ask.png" />
+    <Content Include="Images\ddgo.png" />
+    <Content Include="Images\ddgo.svg" />
     <Content Include="Images\logo-homepage.png" />
+    <Content Include="Scripts\app\highlight.js" />
+    <Content Include="Scripts\app\Home.js" />
+    <Content Include="Scripts\app\Search.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config" />
@@ -215,9 +231,11 @@
     <Content Include="Views\Shared\SearchBarParitalView.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\Shared\DisplayTemplates\ApplicationBrandingModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -229,6 +247,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201507251954543_1.resx">
       <DependentUpon>201507251954543_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507270340540_2.resx">
+      <DependentUpon>201507270340540_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

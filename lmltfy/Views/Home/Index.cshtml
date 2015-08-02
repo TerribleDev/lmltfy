@@ -1,10 +1,11 @@
-﻿@model lmltfy.Models.SearchModel
+﻿@using lmltfy.Models
+@model ApplicationBrandingModel
 
 
-@using (Ajax.BeginForm(new AjaxOptions() { OnComplete = "showResults", OnBegin = "disableBtn"}))
+@using (Ajax.BeginForm("Index",new AjaxOptions() { OnComplete = "showResults", OnBegin = "disableBtn" }))
 {
-    
-    @Html.Partial("SearchBarParitalView")
+    @Html.DisplayFor(a=>a)
+    @Html.Partial("SearchBarParitalView", new SearchModel() {Brand = Model.Brand})
 
 }
 
@@ -19,31 +20,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
-        jQuery.fn.highlight = function () {
-            $(this).each(function () {
-                var el = $(this);
-                el.before("<div/>");
-                el.prev()
-                    .width(el.width())
-                    .height(el.height())
-                    .css({
-                        "position": "absolute",
-                        "background-color": "#ffff99",
-                        "opacity": ".9"
-                    })
-                    .fadeOut(1200);
-            });
-        }
-        function showResults(data) {
-            $('#mainGrp').hide();
-            $('#resultsDiv').show();
-            $('#results').val(data.responseText);
-            $('#resultsDiv').highlight();
-            
-        }
-        function disableBtn() {
-            $('#submitBtn').prop('disabled', true);
-        }
-    </script>
+    @Scripts.Render("~/bundles/home")
 }
