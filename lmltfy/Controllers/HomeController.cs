@@ -13,6 +13,7 @@ namespace lmltfy.Controllers
 
         [Route("")]
         [Route("h/{application}")]
+        [OutputCache(Duration = int.MaxValue, Location = System.Web.UI.OutputCacheLocation.ServerAndClient, VaryByParam = "application")]
         public ActionResult Index(string application = AppNames.Lycos)
         {
             var app = application.ToAppEnum();
@@ -42,7 +43,7 @@ namespace lmltfy.Controllers
 
         [HttpGet]
         [Route("{url}")]
-       // [OutputCache(Duration = 86400, Location = System.Web.UI.OutputCacheLocation.ServerAndClient, VaryByParam = "url")]             
+        [OutputCache(Duration = 86400, Location = System.Web.UI.OutputCacheLocation.ServerAndClient, VaryByParam = "url")]             
         public ActionResult Search(string url)
         {
             var model = db.SearchModels.FirstOrDefault(a => a.Url == url);
