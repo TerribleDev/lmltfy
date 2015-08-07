@@ -11,10 +11,10 @@ namespace lmltfy.Models
 
         public string LogoImageAlt { get; set; }
 
-        public ApplicationBrandEnum Brand { get; set; }
+        public string Brand { get; set; }
 
         public IList<string> StyleSheetUrl { get; set; } = new List<string>();
-        
+
         public IList<string> ScriptUrls { get; set; } = new List<string>();
     }
 }

@@ -18,17 +18,17 @@ namespace lmltfy.Factories
         /// <param name="app"></param>
         /// <param name="query"></param>
         /// <returns></returns>
-        public RedirectModel UrlGenerate(ApplicationBrandEnum app, string query)
+        public RedirectModel UrlGenerate(string app, string query)
         {
-            if (app == ApplicationBrandEnum.Lycos)
+            if (app.Equals(ApplicationBrand.Lycos))
             {
                 return GenerateLycosUrl(query);
-            }  
-            if (app == ApplicationBrandEnum.Ask)
+            }
+            if (app.Equals(ApplicationBrand.Ask))
             {
                 return new RedirectModel($"http://www.ask.com/web?q={query}");
             }
-            if(app == ApplicationBrandEnum.DuckDuckGo)
+            if(app.Equals(ApplicationBrand.DuckDuckGo))
             {
                 return new RedirectModel($"https://duckduckgo.com/?q={query}");
             }

@@ -3,55 +3,56 @@ using System.Web;
 using System.Web.Mvc;
 using lmltfy.Factories;
 using lmltfy.Models;
-using lmltfy.Util;
+using Microsoft.WindowsAzure.Storage;
+using System.Configuration;
 
 namespace lmltfy.Controllers
 {
     public class HomeController : Controller
     {
-        private lmltfyContext db = new lmltfyContext();
 
         [Route("")]
         [Route("h/{application}")]
         [OutputCache(Duration = int.MaxValue, Location = System.Web.UI.OutputCacheLocation.ServerAndClient, VaryByParam = "application")]
-        public ActionResult Index(string application = AppNames.Lycos)
+        public ActionResult Index(string application = ApplicationBrand.Lycos)
         {
-            var app = application.ToAppEnum();
-            if (!app.HasValue)
+            if (ApplicationBrand.Brands.All(a => !a.Equals(application)))
             {
                 return new HttpStatusCodeResult(404);
             }
-            return View(new ApplicationBrandingFactory().ResoleBrand(app.Value));
+            return View(new ApplicationBrandingFactory().ResoleBrand(application));
         }
-       
+
 
         [HttpPost]
         [Route("")]
         public string Index([Bind(Include = "Search,Brand")] SearchModel searchModel)
         {
             searchModel.Url = new UrlGeneration().Generate();
-            while (db.SearchModels.Any(a => a.Url == searchModel.Url))
+            while (MvcApplication.azuredb.GetModelByKey(searchModel.Url) != null)
             {
                 searchModel.Url = new UrlGeneration().Generate();
             }
-            if (!ModelState.IsValid) throw new HttpException(500, "Error parsing query");
-            db.SearchModels.Add(searchModel);
-            db.SaveChanges();
+            if (!ModelState.IsValid || !ApplicationBrand.Brands.Any(a => a.Equals(searchModel.Brand)))
+            {
+                throw new HttpException(500, "Error parsing query");
+            }
+            MvcApplication.azuredb.Save(new[] { searchModel });
             return Url.Action("Search", "Home", new { url = searchModel.Url }, Request.Url.Scheme);
         }
 
 
         [HttpGet]
         [Route("{url}")]
-        [OutputCache(Duration = 86400, Location = System.Web.UI.OutputCacheLocation.ServerAndClient, VaryByParam = "url")]             
+        [OutputCache(Duration = 86400, Location = System.Web.UI.OutputCacheLocation.ServerAndClient, VaryByParam = "url")]
         public ActionResult Search(string url)
         {
-            var model = db.SearchModels.FirstOrDefault(a => a.Url == url);
+            var model = MvcApplication.azuredb.GetModelByKey(url);
             if (model == null)
             {
                 return new HttpStatusCodeResult(404, "Not found");
             }
-            
+
             return View(new SearchResultsViewModel(model, new UrlResolverFactory().UrlGenerate(model.Brand, model.Search), new ApplicationBrandingFactory().ResoleBrand(model.Brand)));
         }
 
@@ -59,7 +60,7 @@ namespace lmltfy.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+
             }
             base.Dispose(disposing);
         }

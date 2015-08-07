@@ -7,7 +7,7 @@ namespace lmltfy.Factories
 {
     public class UrlGeneration
     {
-        private static readonly List<string> EnumedChars = Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz0123456789", 8).ToList(); 
+        static readonly List<string> EnumedChars = Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz0123456789", 8).ToList();
         public string Generate()
         {
             var random = new Random();

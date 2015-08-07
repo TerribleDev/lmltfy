@@ -11,7 +11,7 @@ namespace lmltfy.Models
 
         string LogoImageAlt { get; set; }
 
-        ApplicationBrandEnum Brand { get; set; }
+        string Brand { get; set; }
 
         IList<string> StyleSheetUrl { get; set; }
 

@@ -25,7 +25,7 @@ namespace lmltfy
                       "~/Scripts/respond.js"));
             bundles.Add(new ScriptBundle("~/bundles/home")
                 .Include(
-                "~/Scripts/app/highlight.js", 
+                "~/Scripts/app/highlight.js",
                 "~/Scripts/app/Home.js"));
             bundles.Add(new ScriptBundle("~/bundles/search")
                 .Include(
@@ -36,7 +36,7 @@ namespace lmltfy
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            
+
         }
     }
 }

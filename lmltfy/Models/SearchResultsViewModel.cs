@@ -30,6 +30,6 @@ namespace lmltfy.Models
             RedirectModel = redirectModel;
             BrandingModel = brandingModel;
         }
-       
+
     }
 }
