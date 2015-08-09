@@ -12,8 +12,9 @@ namespace lmltfy.Models
             PartitionKey = ConsPartitionKey;
         }
         [AllowHtml]
-        [StringLength(2000, ErrorMessage = "No more than 2000 characters", MinimumLength = 1)]
+        [StringLength(2000, ErrorMessage = "No more than 2000 characters", MinimumLength = 1), Required(AllowEmptyStrings = false, ErrorMessage = "Search must not be empty")]
         public string Search { get; set; }
+
         string url;
 
         [Key]

@@ -25,9 +25,11 @@ namespace lmltfy
             //Access the db to JIT the EF dll, and generate a URL to JIT parts of our DLL (improve page loads on subsequent first time app starts)
 #if DEBUG
 #else
-            Console.WriteLine(azuredb.GetModelByKey("tdszzxr3").Brand);
+            //MvcHandler.DisableMvcResponseHeader = true;
+           // Console.WriteLine(azuredb.GetModelByKey("tdszzxr3").Brand);
 
 #endif
         }
+
     }
 }
