@@ -38,7 +38,7 @@ namespace lmltfy.Controllers
                 throw new HttpException(500, "Error parsing query");
             }
             MvcApplication.azuredb.Save(new[] { searchModel });
-            return Url.Action("Search", "Home", new { url = searchModel.Url }, Request.Url.Scheme);
+            return Url.Action("Search", "Home", new { url = searchModel.Url }, "https");
         }
 
 
